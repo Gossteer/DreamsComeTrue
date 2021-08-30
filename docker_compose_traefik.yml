@@ -48,7 +48,7 @@ services:
         - .:/var/www/${APP_NAME}
         - .docker/traefik/php/php.ini:/usr/traefik/etc/php/php.ini
     labels:
-        - "traefik.enable=false"
+        - traefik.enable=false
 
     # MySQL container
   mysql:
@@ -65,8 +65,8 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      labels:
-        - "traefik.enable=false"
+    labels:
+        - traefik.enable=false
 
 networks:
   default:
