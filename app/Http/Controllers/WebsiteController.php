@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Tour;
 use App\Website;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -89,5 +91,15 @@ class WebsiteController extends Controller
         Website::find($request->id)->delete();
 
         return 1;
+    }
+
+    public function siteIndex()
+    {
+        return view('site.index', ['Carbon' => Carbon::now()->addDays(14), 'Cardon_hot' =>Carbon::now(), 'tours' => Tour::where('Confidentiality',0)->orderByDesc('Start_Date_Tours')->paginate(4)]);
+    }
+
+    public function siteAbout()
+    {
+        return view('site.about');
     }
 }

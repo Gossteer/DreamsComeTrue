@@ -31,12 +31,12 @@ Route::group(['middleware' => ['auth', 'type.user']], function () {
     Route::post('admin/tours/complitetourforcustomer', 'PassengerController@complitetourforcustomer')->name('complitetourforcustomer');
     Route::get('admin/tours/{tour}/record', 'TourController@tourgoadmin')->name('tourgoadmin');
     Route::delete('admin/tours/{tour}/passenger/delete', 'PassengerController@destroyadmin')->name('destroyadmin');
-    Route::post('admin/tourscustomeridnex', 'TourController@customeridnex')->name('customer.indexrecord'); 
+    Route::post('admin/tourscustomeridnex', 'TourController@customeridnex')->name('customer.indexrecord');
 
     Route::resource('admin/customer', 'CustomerController');
     Route::post('admin/customercomplite', 'CustomerController@condition_complite')->name('customer.condition_complite');
     Route::post('admin/customer/fullindex', 'CustomerController@indexfull')->name('customer.index.full');
-    Route::get('admin/customerdelete', 'CustomerController@indexdelete')->name('customer.indexdelete'); 
+    Route::get('admin/customerdelete', 'CustomerController@indexdelete')->name('customer.indexdelete');
     Route::put('admin/customerdelete/{customer}', 'CustomerController@destroyremuve')->name('customer.destroyremuve');
     Route::delete('admin/customerfulldelete/{customer}', 'CustomerController@fulldestroy')->name('customer.fulldestroy');
 
@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth', 'type.user']], function () {
     Route::post('admin/routeupdate', 'RouteController@update')->name('route.update');
     Route::post('admin/routedestroy', 'RouteController@destroy')->name('route.destroy');
 
-    
+
     Route::post('admin/tours/{tour}/record/storepassengers', 'PassengerController@createadmin')->name('passengers.createadmin');
     Route::get('admin/tours/passengers', 'PassengerController@index')->name('passengers.index');
     Route::get('admin/tours/passengers/{passenger}/edit', 'PassengerController@edit')->name('passengers.edit');
@@ -129,13 +129,8 @@ Route::get('/packages/{tour}/{Name_Tours}/record', 'TourController@tourgo')->nam
 
 Route::get('/ухади', 'SiteController@type_user_false')->name('typeuserfalse');
 
-Route::get('/', function () {
-    return view('site.index', ['Carbon' => Carbon::now()->addDays(14), 'Cardon_hot' =>Carbon::now(), 'tours' => Tour::where('Confidentiality',0)->orderByDesc('Start_Date_Tours')->paginate(4)]);
-})->name('/');
-
-Route::get('/about', function () {
-    return view('site.about');
-})->name('/about');
+Route::get('/', 'WebsiteController@siteIndex')->name('/');
+Route::get('/about', 'WebsiteController@siteAbout')->name('/about');
 
 Route::post('/contact', 'ContactController@send')->name('/contactsend');
 Route::get('/contact', 'ContactController@index')->name('/contact');
