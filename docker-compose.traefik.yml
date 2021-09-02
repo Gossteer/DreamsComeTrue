@@ -44,6 +44,12 @@ services:
         args:
           - APP_ENV=${APP_ENV}
           - APP_NAME=${APP_NAME}
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+        reservations:
+          memory: 50M
     volumes:
         - .:/var/www/${APP_NAME}
         - .docker/traefik/php/php.ini:/usr/traefik/etc/php/php.ini
@@ -51,28 +57,28 @@ services:
         - traefik.enable=false
 
     # MySQL container
-  mysql:
-    container_name: ${APP_NAME}-mysql
-    restart: unless-stopped
-    hostname: mysql
-    build:
-      context: .docker/traefik/mysql
-      dockerfile: Dockerfile
-    volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    labels:
-        - traefik.enable=false
+  # mysql:
+  #   container_name: ${APP_NAME}-mysql
+  #   restart: unless-stopped
+  #   hostname: mysql
+  #   build:
+  #     context: .docker/traefik/mysql
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${DB_DATABASE}
+  #     MYSQL_USER: ${DB_USERNAME}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #   labels:
+  #       - traefik.enable=false
 
 networks:
   default:
     external:
       name: traefik
 
-volumes:
-  mysql_data:
-    driver: local
+# volumes:
+#   mysql_data:
+#     driver: local

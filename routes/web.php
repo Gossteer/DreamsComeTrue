@@ -11,9 +11,6 @@
 |
 */
 
-use App\Tour;
-use Carbon\Carbon;
-
 Route::group(['middleware' => ['auth', 'type.user']], function () {
     Route::resource('admin/partners', 'PartnerController');
     Route::get('admin/partnersdelete', 'PartnerController@indexdelete')->name('partners.indexdelete');
