@@ -34,8 +34,6 @@ services:
   php:
     container_name: ${APP_NAME}-php
     restart: unless-stopped
-    links:
-      - mysql
     build:
         context: .
         dockerfile: .docker/traefik/php/Dockerfile
